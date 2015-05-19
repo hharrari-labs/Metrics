@@ -1,0 +1,3 @@
+basicperf_metrics_homepage:
+    path:     /
+    defaults: { _controller: BasicperfMetricsBundle:Metrics:index }

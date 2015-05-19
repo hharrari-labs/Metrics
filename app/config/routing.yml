@@ -1,0 +1,8 @@
+basicperf_metrics:
+    resource: "@BasicperfMetricsBundle/Resources/config/routing.yml"
+    prefix:   /door/basicperf/
+
+
+# relicperf_metrics:
+#     resource: "@BasicperfMetricsBundle/Resources/config/routing.yml"
+#     prefix:   /door/relicperf/
