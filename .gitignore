@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /app/bootstrap.php.cache
 /app/cache/*
 !app/cache/.gitkeep
@@ -9,3 +10,7 @@
 /composer.phar
 /vendor/
 /web/bundles/
+=======
+/app/cache/*
+/app/logs/*
+>>>>>>> 5c462f80f1d2dc7a8311192197d624bb2cacb952
