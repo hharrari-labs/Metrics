@@ -8,7 +8,12 @@ class MetricsController extends Controller
 {
     public function indexAction()
     {
-       $pagetype = array('0' => 'home', '1' => 'content', '2' => 'diapo','3' => 'video','4' => 'groupement','5' => 'list');
+		return $this->render('BasicperfMetricsBundle:Metrics:index.html.twig');
+    }
+
+    public function AddDataAction()
+    {
+    	       $pagetype = array('0' => 'home', '1' => 'content', '2' => 'diapo','3' => 'video','4' => 'groupement','5' => 'list');
 
 		foreach ($pagetype as $key => $value) {
 
@@ -60,10 +65,5 @@ class MetricsController extends Controller
 		}
 		return $this->render('BasicperfMetricsBundle:Metrics:index.html.twig', array(
      		 'data' => $result_total,));
-    }
-
-    public function AddDataAction()
-    {
-    	
     }
 }
