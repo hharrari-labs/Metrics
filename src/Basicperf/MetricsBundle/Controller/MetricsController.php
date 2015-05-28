@@ -8,7 +8,12 @@ class MetricsController extends Controller
 {
     public function indexAction()
     {
-       $pagetype = array('0' => 'home', '1' => 'content', '2' => 'diapo','3' => 'video','4' => 'groupement','5' => 'list');
+      	return $this->render('BasicperfMetricsBundle:Metrics:index.html.twig');
+    }
+
+    public function AddDataAction()
+    {
+    	$pagetype = array('0' => 'actualite_home_rwd', '1' => 'actualite_content_rwd', '2' => 'actualite_diapo_rwd','3' => 'actualite_video_rwd','4' => 'actualite_groupement_rwd','5' => 'actualite_list_rwd');
 
 		foreach ($pagetype as $key => $value) {
 
@@ -25,7 +30,6 @@ class MetricsController extends Controller
 			$result = curl_exec($ch);
 
 			$obj = json_decode($result, true);
-			var_dump($obj); die();
 			$items_times = array();
 			$count_time = 0;
 			$array_count_time = count($obj["data"]);
@@ -55,15 +59,15 @@ class MetricsController extends Controller
 
 			$result_total = $timing / 1000;
 			$result_total = round($result_total,1);
+			var_dump($result_total);
+			var_dump($value);
 
 			curl_close($ch);
 		}
-		return $this->render('BasicperfMetricsBundle:Metrics:index.html.twig', array(
-     		 'data' => $result_total,));
-    }
 
-    public function AddDataAction()
-    {
-    	
+
+		return $this->render('BasicperfMetricsBundle:Metrics:index.html.twig', array(
+     		 'data' => $result_total,
+     		 'pagetype' => $value,));
     }
 }
