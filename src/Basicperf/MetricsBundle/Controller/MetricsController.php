@@ -8,11 +8,13 @@ class MetricsController extends Controller
 {
     public function indexAction()
     {
+
       	return $this->render('BasicperfMetricsBundle:Metrics:index.html.twig');
     }
 
     public function AddDataAction()
     {
+
     	$pagetype = array('0' => 'actualite_home_rwd', '1' => 'actualite_content_rwd', '2' => 'actualite_diapo_rwd','3' => 'actualite_video_rwd','4' => 'actualite_groupement_rwd','5' => 'actualite_list_rwd');
 
 		foreach ($pagetype as $key => $value) {
@@ -65,9 +67,9 @@ class MetricsController extends Controller
 			curl_close($ch);
 		}
 
-
 		return $this->render('BasicperfMetricsBundle:Metrics:index.html.twig', array(
      		 'data' => $result_total,
      		 'pagetype' => $value,));
+
     }
 }
