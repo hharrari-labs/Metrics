@@ -24,7 +24,7 @@ class Frontend
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date", type="datetime")
+     * @ORM\Column(name="date", type="string")
      */
     private $date;
 

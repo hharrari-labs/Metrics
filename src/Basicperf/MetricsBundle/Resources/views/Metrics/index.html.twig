@@ -1,1 +1,10 @@
 {% extends "BasicperfMetricsBundle::layout.html.twig" %} 
+
+{% block Content %} 
+<ul>
+	{% for item_data in metrics %}
+		<li>{{ item_data.pagetype}} - {{ item_data.loadtime }}</li>
+	{% endfor %}
+</ul>
+
+{% endblock Content %} 

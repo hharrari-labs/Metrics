@@ -1,3 +1,7 @@
 basicperf_metrics_homepage:
     path:     /
     defaults: { _controller: BasicperfMetricsBundle:Metrics:index }
+
+basicperf_metrics_get_metrics:
+    path:     /get_metrics
+    defaults: { _controller: BasicperfMetricsBundle:Metrics:getMetrics }
