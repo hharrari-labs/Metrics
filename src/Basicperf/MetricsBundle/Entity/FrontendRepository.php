@@ -15,4 +15,16 @@ class FrontendRepository extends EntityRepository
 	public function loadtime($data){
 
 	}
+
+	public function findByPagetype($pagetype){
+
+		$qb = $this->_em->createQueryBuilder();
+				$qb->select('f.date, f.loadtime')
+				   ->from('BasicperfMetricsBundle:Frontend', 'f')
+				   ->where('f.pagetype = :pagetype')
+				   ->setParameter('pagetype', $pagetype)
+				   ->orderBy('f.date', 'ASC');
+
+		return $qb->getQuery()->getResult();
+	}
 }

@@ -1,0 +1,2 @@
+[{% for item_data in metrics %}[{{ item_data.date|date('U') }}000,{{ item_data.loadtime }}]{% if loop.last %}]{% else %},{% endif %}{% endfor %}
+
