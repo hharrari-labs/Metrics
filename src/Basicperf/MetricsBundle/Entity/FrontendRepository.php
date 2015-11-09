@@ -27,4 +27,30 @@ class FrontendRepository extends EntityRepository
 
 		return $qb->getQuery()->getResult();
 	}
+
+	public function findByNametype($pagetype){
+
+		$qb = $this->_em->createQueryBuilder();
+				$qb->select('f.date, f.loadtime, f.pagetype')
+				   ->from('BasicperfMetricsBundle:Frontend', 'f')
+				   ->where($qb->expr()->like('f.pagetype', ':pagetype'))
+				   ->setParameter('pagetype','%' .$pagetype.'%')
+				   ->orderBy('f.pagetype ASC, f.date');
+
+		return $qb->getQuery()->getResult();
+	}
+
+	public function findBytype($pagetype){
+
+		$qb = $this->_em->createQueryBuilder();
+				$qb->select('DISTINCT f.pagetype')
+				   ->from('BasicperfMetricsBundle:Frontend', 'f')
+				   ->where($qb->expr()->like('f.pagetype', ':pagetype'))
+				   ->setParameter('pagetype','%' .$pagetype.'%')
+				   ->orderBy('f.pagetype', 'ASC');
+
+		return $qb = json_encode(array_map('current', $qb->getQuery()->getArrayResult()));
+	}
 }
+
+

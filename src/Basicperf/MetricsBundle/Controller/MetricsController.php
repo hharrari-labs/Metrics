@@ -23,7 +23,19 @@ class MetricsController extends Controller
 						   ->getManager()
 						   ->getRepository('BasicperfMetricsBundle:Frontend');
 	   	$metrics = $repository->FindBy([], ['date' => 'ASC']);
-      	return array('metrics' => $metrics);
+        $type_article = $repository->FindBytype("article");
+        $type_groupement = $repository->FindBytype("groupement");
+        $type_home = $repository->FindBytype("home");
+        $type_list = $repository->FindBytype("list");
+        $type_diaporama = $repository->FindBytype("diaporama");
+      	return array(
+            'metrics'        => $metrics,
+            'type_article'   => $type_article, 
+            'type_groupement' => $type_groupement, 
+            'type_home'      => $type_home, 
+            'type_list'      => $type_list ,
+            'type_diaporama' => $type_diaporama 
+                         );
     }
 
     /**

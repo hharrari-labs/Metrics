@@ -105,7 +105,47 @@
 	</div>
 </div>
 
+{#
+	**************************************************************
 
+		Table Metrics Basilic
+
+	**************************************************************
+#}	
+<div class="row-fluid sortable">		
+	<div class="box span12">
+		<div class="box-header" data-original-title>
+			<h2>
+				<i class="halflings-icon globe"></i>
+				<span class="break"></span>Metrics Frontend
+			</h2>
+			<div class="box-icon">
+				<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
+				<a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>
+			</div>
+		</div>
+		<div class="box-content">
+			<table class="table table-striped table-bordered bootstrap-datatable datatable">
+			  	<thead>
+				  	<tr>
+				  		<th>Date</th>
+					 	<th>Type de Page</th>
+					    <th>Temps</th>
+				    </tr>
+				</thead>   
+				<tbody>
+					{% for item_data in metrics %}
+						<tr>
+							<td> {{ item_data.date }} </td>
+							<td class="center">{{ item_data.pagetype }}</td>
+							<td class="center">{{ item_data.loadtime }}</td>
+						</tr>						
+					{% endfor %}
+				</tbody>
+		    </table>            
+		</div>
+	</div>
+</div>
 
 
 {% endblock Content %} 
@@ -122,35 +162,34 @@
 {% block javascripts %}
 	{{ parent() }}
 
-<script type="text/javascript">
+<script type="text/javascript">    
 	$(function () {
-
   		var seriesOptions = [],
-	        seriesCounter = 0,
-    	    container = ['article','home','diaporama','list','groupement'];
+	        seriesCounter = [],
 		
 		eachData = function (names,div){
+			seriesCounter[div] = 0;
+			seriesOptions[div] = []
 		    $.each(names, function (i, name) {
 		    	$.getJSON('http://metrics/app_dev.php/door/basicperf/data/json/'+name,  function (data) {
 
-		        	seriesOptions[i] = {
+
+		        	seriesOptions[div][i] = {
 		            	name: name,
 		            	data: data
 		        	};
-
-		       		seriesCounter += 1;
-		   			if (seriesCounter === names.length) {
-		          		createChart(seriesOptions, div);
+		       		seriesCounter[div] += 1;
+		   			if (seriesCounter[div] === names.length) {
+		          		createChart(div);
 		       		} 
 				});
 		    });	 
+
 		}
 
         // create the chart when all data is loaded
-        createChart = function (seriesOptions,div) {
-        	console.log('#chart-metrics-front-'+div);
+        createChart = function (div) {
             $('#chart-metrics-front-'+div).highcharts('StockChart', {
-
                 rangeSelector: {
                     selected: 2
                 },
@@ -164,56 +203,18 @@
                 },
 
                 tooltip: {
-                    pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b><br/>',
+                    pointFormat: '<span style="color:{series.color};font-weight: bold;">{series.name}</span>: <b>{point.y}</b><br/>',
                     valueDecimals: 2
                 },
-				series:seriesOptions
+				series: seriesOptions[div]
             });
         };  
 
-        {% set type = ['article','home','diaporama','list','groupement'] %};
-        {% set b = 0 %};
-
-		{% for item in metrics %}	
-			{% if item.pagetype not in newArray %}		
-				{% set newArray = newArray|merge([item.pagetype]) %}
-			{% endif %}	
-		{% endfor %}
-
-		{% for type_name in type %}
-   			names = []
-			{% for item in newArray|sort %}
-				{% if type[b] in item %}
-					names.push('{{ item }}');
-				{% endif %}	
-			{% endfor %}
-
-			{% if b == 0 %}
-			var	data_article = names;
-			var div_article = container[{{b}}];
-			{% elseif b == 1 %}
-			var	data_home = names;
-			var div_home = container[{{b}}];
-			{% elseif b == 2 %}
-			var	data_diapo = [names];
-			var div_diapo = container[{{b}}];
-			{% elseif b == 3 %}
-			var	data_list = [names];
-			var div_list = container[{{b}}];
-			{% elseif b == 4 %}
-			var	data_groupement  = [names];
-			var div_groupement = container[{{b}}];
-			{% endif %}	  
-
-			{% set b = b + 1 %}
-		{% endfor %}
-
-  			var jsonData_article = eachData(data_article,div_article);
-  			var jsonData_home = eachData(data_home,div_home);
-  			var jsonData_diapo = eachData(data_diapo,div_list);
-  			var jsonData_list = eachData(data_list,div_list);
-  			var jsonData_groupement = eachData(data_groupement,div_groupement);
- 
+        eachData({{type_article|raw}},'article');
+		eachData({{type_home|raw}},'home');
+		eachData({{type_diaporama|raw}},'diaporama');
+		eachData({{type_list|raw}},'list');
+		eachData({{type_groupement|raw}},'groupement');
 	});
 </script>
 {% endblock javascripts %}
