@@ -35,7 +35,7 @@ class MetricsController extends Controller
             'type_home'       => $type_home, 
             'type_list'       => $type_list ,
             'type_diaporama'  => $type_diaporama 
-                         );
+            );
     }
 
     /**

@@ -173,8 +173,6 @@
 			seriesOptions[div] = []
 		    $.each(names, function (i, name) {
 		    	$.getJSON('http://metrics/app_dev.php/frontend_metrics/data/json/'+name,  function (data) {
-
-
 		        	seriesOptions[div][i] = {
 		            	name: name,
 		            	data: data
