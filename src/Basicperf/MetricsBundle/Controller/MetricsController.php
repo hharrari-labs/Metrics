@@ -29,18 +29,17 @@ class MetricsController extends Controller
         $type_list = $repository->FindBytype("list");
         $type_diaporama = $repository->FindBytype("diaporama");
       	return array(
-            'metrics'        => $metrics,
-            'type_article'   => $type_article, 
+            'metrics'         => $metrics,
+            'type_article'    => $type_article, 
             'type_groupement' => $type_groupement, 
-            'type_home'      => $type_home, 
-            'type_list'      => $type_list ,
-            'type_diaporama' => $type_diaporama 
+            'type_home'       => $type_home, 
+            'type_list'       => $type_list ,
+            'type_diaporama'  => $type_diaporama 
                          );
     }
 
     /**
-     * @Route("/get_metrics", name="_get_metrics")
-     * @Template("BasicperfMetricsBundle:Metrics:index.html.twig")
+     * @Route("/get_metrics", name="get_metrics")
      */
     public function getMetricsAction()
     {

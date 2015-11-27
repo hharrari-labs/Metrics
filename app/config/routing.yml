@@ -1,7 +1,24 @@
+# hexa_user:
+#     resource: "@HexaUserBundle/Resources/config/routing.yml"
+#     prefix:   /
+
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+login:
+    pattern:   /login
+    defaults:  { _controller: HexaUserBundle:Security:login }
+
+login_check:
+    pattern:   /login_check
+
+logout:
+    pattern:   /logout
+
 basicperf_metrics:
     resource: "@BasicperfMetricsBundle/Resources/config/routing.yml"
-    prefix:   /door/basicperf/
-
+    prefix:   /frontend_metrics/
 
 # relicperf_metrics:
 #     resource: "@BasicperfMetricsBundle/Resources/config/routing.yml"

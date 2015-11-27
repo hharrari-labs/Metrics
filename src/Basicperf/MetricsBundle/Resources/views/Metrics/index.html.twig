@@ -167,11 +167,12 @@
   		var seriesOptions = [],
 	        seriesCounter = [],
 		
+		// get loadtime by pagetype and call function create chart
 		eachData = function (names,div){
 			seriesCounter[div] = 0;
 			seriesOptions[div] = []
 		    $.each(names, function (i, name) {
-		    	$.getJSON('http://metrics/app_dev.php/door/basicperf/data/json/'+name,  function (data) {
+		    	$.getJSON('http://metrics/app_dev.php/frontend_metrics/data/json/'+name,  function (data) {
 
 
 		        	seriesOptions[div][i] = {
@@ -210,6 +211,7 @@
             });
         };  
 
+        // Call function eachdata with data pagetype
         eachData({{type_article|raw}},'article');
 		eachData({{type_home|raw}},'home');
 		eachData({{type_diaporama|raw}},'diaporama');

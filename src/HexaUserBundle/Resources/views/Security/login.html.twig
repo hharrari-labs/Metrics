@@ -1,0 +1,58 @@
+{% extends "BasicperfMetricsBundle::layout.html.twig" %} 
+
+{% block stylesheets %}
+  {{parent()}}
+    <style type="text/css">
+      body { background: url(/img/bg-login.jpg) !important; }
+    </style>
+{% endblock %}
+
+{% block body %}
+
+<body>
+  {# S'il y a une erreur, on l'affiche dans un joli cadre #}
+  {% if error %}
+    <div class="alert alert-danger">{{ error.message }}</div>
+  {% endif %}
+    <div class="container-fluid-full">
+    <div class="row-fluid">
+          
+      <div class="row-fluid">
+        <div class="login-box">
+          <div class="icons">
+            <a href="index.html"><i class="halflings-icon home"></i></a>
+            <a href="#"><i class="halflings-icon cog"></i></a>
+          </div>
+          <h2>Login to your account</h2>
+
+            <form  class="form-horizontal" action="{{ path('login_check') }}" method="post">
+              <fieldset>
+                <div class="input-prepend" title="Username">
+                 <span class="add-on"><i class="halflings-icon user"></i></span>
+                 <input type="text" placeholder="username" class="input-large span10" id="username" name="_username" value="{{ last_username }}" />
+                </div>
+              <div class="clearfix"></div>
+              <div class="input-prepend" title="Password">
+                <span class="add-on"><i class="halflings-icon lock"></i></span>
+                <input class="input-large span10" type="password" id="password" name="_password" placeholder="password" />
+              </div>
+              <div class="clearfix"></div>
+              <label class="remember" for="remember"><input type="checkbox" id="remember" />Remember me</label>
+
+              <div class="button-login">  
+                <button type="submit" class="btn btn-primary">Login</button>
+              </div>
+              <div class="clearfix"></div>
+          </form>
+
+          <hr>
+          <h3>Forgot Password?</h3>
+          <p>
+            No problem, <a href="#">click here</a> to get a new password.
+          </p>  
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+{% endblock %}
