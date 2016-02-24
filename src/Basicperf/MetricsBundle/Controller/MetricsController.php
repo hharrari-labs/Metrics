@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class MetricsController extends Controller
 {
@@ -56,6 +57,7 @@ class MetricsController extends Controller
     /**
      * @Route("/get_metrics", name="get_metrics")
      * @Template("BasicperfMetricsBundle:Metrics:data.html.twig")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function getMetricsAction()
     {

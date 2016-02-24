@@ -22,7 +22,7 @@ class ApiBasilic
 
 	public function GetMetrics($date)
 	{	
-		if ($date === '') {
+		if ($date == '') {
 				$date=1;
 			}	
 		$date_from = date(DATE_ATOM, mktime(0, 0, 0, date("m"), date("d")-$date, date("Y")));
