@@ -1,0 +1,49 @@
+{% extends "BasicperfMetricsBundle::layout.html.twig" %} 
+
+{% block stylesheets %}
+  {{parent()}}
+    <style type="text/css">
+      body { background: url(/img/bg-login.jpg) !important; }
+    </style>
+{% endblock %}
+
+{% block body %}
+
+<body>
+  {# S'il y a une erreur, on l'affiche dans un joli cadre #}
+  <div class="container-fluid-full">
+    <div class="row-fluid">            
+      <div class="row-fluid">
+        <div class="login-box">
+          <div class="icons">
+            <a href="{{ path('home') }}"><i class="halflings-icon home"></i></a>
+            <a href="{{ path('fos_user_profile_edit') }}"><i class="halflings-icon cog"></i></a>
+          </div>
+          <div style="margin: 20px 15px">
+            {% block fos_user_content %}
+            {% endblock fos_user_content %}
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+              {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
+              <a href="{{ path('fos_user_security_logout') }}">
+                {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+              </a>
+            {% else %}
+              <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+            {% endif %}
+            {% if app.request.hasPreviousSession %}
+              {% for type, messages in app.session.flashbag.all() %}
+                {% for message in messages %}
+                  <div class="flash-{{ type }}">
+                    {{ message }}
+                  </div>
+                {% endfor %}
+              {% endfor %}
+            {% endif %} 
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+{% endblock %}

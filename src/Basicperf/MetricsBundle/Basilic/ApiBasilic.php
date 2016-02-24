@@ -53,29 +53,32 @@ class ApiBasilic
 	}
 	
 	public function SetMetrics($data_sort)
-		{	
-			
-			$date_from = substr(date(DATE_ATOM, mktime(0, 0, 0, date("m"), date("d")-$data_sort[0]['date'], date("Y"))), 0,-15);
+	{	
+		
+		$date_from = substr(date(DATE_ATOM, mktime(0, 0, 0, date("m"), date("d")-$data_sort[0]['date'], date("Y"))), 0,-15);
 
-			$em = $this->doctrine
-					   ->getEntityManager()
-		   		   	   ->getRepository('BasicperfMetricsBundle:Frontend');
+		$em = $this->doctrine
+				   ->getEntityManager();
 
-			$metrics = $em->findOneBy(array('date' => $date_from));
+		$metrics = $em
+			->getRepository('BasicperfMetricsBundle:Frontend')
+			->findOneBy(array('date' => $date_from));
 
-			if($metrics === null)
-			{
-				
-				foreach ($data_sort as $key => $value) {
-					$data_metrics = new Frontend();
-					$data_metrics->setloadtime($value['time']);
-					$data_metrics->setpagetype($value['pagetype']);
-					$data_metrics->setdate($date_from);
-					$emd = $this->doctrine->getManager();
-					$emd->persist($data_metrics);
-					$emd->flush();
-				}
+		$new_metrics = array();
+
+		if($metrics === null)
+		{
+			foreach ($data_sort as $key => $value) {
+				$data_metrics = new Frontend();
+				$data_metrics->setloadtime($value['time']);
+				$data_metrics->setpagetype($value['pagetype']);
+				$data_metrics->setdate($date_from);
+				$em->persist($data_metrics);
+				$em->flush();
+				$new_metrics[] = $data_metrics;
 			}
-		return $metrics = $em->findAll();
+		}
+
+		return $new_metrics;
 	}	
 }

@@ -39,7 +39,23 @@ class MetricsController extends Controller
     }
 
     /**
+     * @Route("/table", name="table")
+     * @Template("BasicperfMetricsBundle:Metrics:table.html.twig")
+     */
+    public function getTableAction()
+    {
+
+        $repository = $this->getDoctrine()
+           ->getManager()
+           ->getRepository('BasicperfMetricsBundle:Frontend');
+        $metrics = $repository->FindBy([], ['date' => 'ASC']);
+
+        return array('metrics' => $metrics); 
+    }
+
+    /**
      * @Route("/get_metrics", name="get_metrics")
+     * @Template("BasicperfMetricsBundle:Metrics:data.html.twig")
      */
     public function getMetricsAction()
     {

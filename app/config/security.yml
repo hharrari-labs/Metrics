@@ -1,4 +1,4 @@
-# app/config/security.yml
+    # app/config/security.yml
 security:
     encoders:
         FOS\UserBundle\Model\UserInterface: bcrypt
@@ -12,16 +12,17 @@ security:
             id: fos_user.user_provider.username
 
     firewalls:
-        dev:
-            pattern:  ^/(_(profiler|wdt)|css|images|js)/
-            security: false
         main:
             pattern: ^/
             form_login:
                 provider: fos_userbundle
                 csrf_provider: security.csrf.token_manager # Use form.csrf_provider instead for Symfony <2.4
-            logout:       true
+                default_target_path : /frontend_metrics
+            logout:
+                path:       /logout
+                target:     /login 
             anonymous:    true
+
 
 
     access_control:
@@ -29,3 +30,4 @@ security:
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/, role: ROLE_ADMIN }
+        - { path: ^/frontend_metrics/, role: ROLE_USER }

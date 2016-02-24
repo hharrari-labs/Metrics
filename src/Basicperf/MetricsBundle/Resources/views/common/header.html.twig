@@ -8,7 +8,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </a>
-        <a class="brand" href="index.html"><span>Metrics Dashboard</span></a>
+        <a class="brand" href="{{ path('home') }}"><span>Metrics Dashboard</span></a>
 
       {% block Header_Menu %}       
         <!-- start: Header Menu -->
@@ -16,7 +16,7 @@
           <ul class="nav pull-right">
 
           {% block Notification %}  
-            <li class="dropdown hidden-phone">
+{#             <li class="dropdown hidden-phone">
               <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
                 <i class="halflings-icon white warning-sign"></i>
               </a>
@@ -56,12 +56,12 @@
                   <a>View all notifications</a>
                 </li> 
               </ul>
-            </li>
+            </li> #}
           {% endblock Notification %} 
 
           {% block Notifications_Dropdown %}
             <!-- start: Notifications Dropdown -->
-            <li class="dropdown hidden-phone">
+{#             <li class="dropdown hidden-phone">
               <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
                 <i class="halflings-icon white tasks"></i>
               </a>
@@ -83,13 +83,13 @@
                   <a class="dropdown-menu-sub-footer">View all tasks</a>
                 </li> 
               </ul>
-            </li>
+            </li> #}
             <!-- end: Notifications Dropdown -->
           {% endblock Notifications_Dropdown %}
 
           {% block Message_Dropdown %}
             <!-- start: Message Dropdown -->
-            <li class="dropdown hidden-phone">
+{#             <li class="dropdown hidden-phone">
               <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
                 <i class="halflings-icon white envelope"></i>
               </a>
@@ -116,28 +116,28 @@
                   <a class="dropdown-menu-sub-footer">View all messages</a>
                 </li> 
               </ul>
-            </li>
+            </li> #}
             <!-- end: Message Dropdown -->
           {% endblock Message_Dropdown %} 
 
-            <li>
+{#             <li>
               <a class="btn" href="#">
                 <i class="halflings-icon white wrench"></i>
               </a>
-            </li>
+            </li> #}
             {% block User_Dropdown %}
             <!-- start: User Dropdown -->
             <li class="dropdown">
               <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                <i class="halflings-icon white user"></i> H.Hakim
+                <i class="halflings-icon white user"></i> {{ app.user.username }}
                 <span class="caret"></span>
               </a>
               <ul class="dropdown-menu">
                 <li class="dropdown-menu-title">
                   <span>Account Settings</span>
                 </li>
-                <li><a href="#"><i class="halflings-icon user"></i> Profile</a></li>
-                <li><a href="login.html"><i class="halflings-icon off"></i> Logout</a></li>
+                <li><a href="{{path('fos_user_profile_show') }}"><i class="halflings-icon user"></i> Profile</a></li>
+                <li><a href="{{path('fos_user_security_logout') }}"><i class="halflings-icon off"></i> Logout</a></li>
               </ul>
             </li>
 
