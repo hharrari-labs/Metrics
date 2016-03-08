@@ -55,15 +55,15 @@ class MetricsController extends Controller
     }
 
     /**
-     * @Route("/get_metrics", name="get_metrics")
+     * @Route("/get_metrics/{date}", name="get_metrics")
      * @Template("BasicperfMetricsBundle:Metrics:data.html.twig")
      * @Security("has_role('ROLE_ADMIN')")
      */
-    public function getMetricsAction()
+    public function getMetricsAction($date)
     {
 
     	$metrics_basilic = $this->container->get('basicperf_metrics.apibasilic');
-    	$get_metrics = $metrics_basilic->GetMetrics(1);
+    	$get_metrics = $metrics_basilic->GetMetrics($date);
     	$set_metrics = $metrics_basilic->SetMetrics($get_metrics);
 		return array('metrics' => $set_metrics);    	
     }
