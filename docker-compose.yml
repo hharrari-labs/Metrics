@@ -1,0 +1,33 @@
+version: "3"
+
+services:
+  web2:
+    image: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+      - ./:/var/www/app
+    depends_on:
+      - php
+
+  php:
+    build: docker/docker-php
+    volumes:
+      - ./:/var/www/app
+    depends_on:
+      - db
+
+  db:
+    image: mysql
+    volumes:
+      - /var/lib/mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "8080:80"
+    depends_on:
+        - db
